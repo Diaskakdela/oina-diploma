@@ -1,0 +1,5 @@
+rootProject.name = 'OinaPlatform'
+include 'inventory-service'
+include 'order-rent-service'
+include 'subscription-service'
+

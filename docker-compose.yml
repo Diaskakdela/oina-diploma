@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: oina
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  inventory-service:
+    build: ./inventory-service
+    ports:
+      - "8081:8080"
+    environment:
+      SERVER_PORT: 8081
+      DATASOURCE_URL: jdbc:postgresql://postgres:5432/oina
+      DATASOURCE_USERNAME: postgres
+      DATASOURCE_PASSWORD: postgres
+      JWT_SECRET: b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
+    depends_on:
+      - postgres
+
+  order-rent-service:
+    build: ./order-rent-service
+    ports:
+      - "8082:8080"
+    environment:
+      SERVER_PORT: 8082
+      DATASOURCE_URL: jdbc:postgresql://postgres:5432/oina
+      DATASOURCE_USERNAME: postgres
+      DATASOURCE_PASSWORD: postgres
+      JWT_SECRET: b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
+      INVENTORY_URL: http://inventory-service:8080
+      ORDER_AUTO_CANCEL_MINUTES: 5
+      CANCEL_UNPAID_ORDERS_CRON: 0 0/15 * * * ?
+    depends_on:
+      - postgres
+
+  subscription-service:
+    build: ./subscription-service
+    ports:
+      - "8083:8080"
+    environment:
+      SERVER_PORT: 8083
+      DATASOURCE_URL: jdbc:postgresql://postgres:5432/oina
+      DATASOURCE_USERNAME: postgres
+      DATASOURCE_PASSWORD: postgres
+      JWT_SECRET: b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
+    depends_on:
+      - postgres
+
+  user-service-oina:
+    build:
+      context: ./dotnet/UserServiceOina
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=oina;Username=postgres;Password=postgres
+      - jwt__key=b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
+      - Logging__LogLevel__Microsoft.AspNetCore=Warning
+    depends_on:
+      - postgres
+
+  toys-service:
+    build:
+      context: ./dotnet/ToysService
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=oina;Username=postgres;Password=postgres
+      - jwt__key=b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
+      - Logging__LogLevel__Microsoft.AspNetCore=Warning
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
