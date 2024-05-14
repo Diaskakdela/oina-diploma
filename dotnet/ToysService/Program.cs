@@ -33,7 +33,17 @@ builder.Services.AddScoped<ToyFactory, ToyFactory>();
 builder.Services.AddScoped<IToyReviewService, ToyReviewService>();
 builder.Services.AddScoped<IToyReviewRepository, ToyReviewRepository>();
 builder.Services.AddScoped<ToyReviewFactory, ToyReviewFactory>();
-//todo вызвать migrate у application db context
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(options =>

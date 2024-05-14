@@ -35,6 +35,17 @@ builder.Services.AddScoped<KafkaListener>(sp => {
     var logger = sp.GetRequiredService<ILogger<KafkaListener>>();
     return new KafkaListener(userService, kafkaProducer, logger);
 });
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers();
 builder.Services.AddLogging(configure => configure.AddConsole())
     .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
@@ -61,6 +72,7 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
