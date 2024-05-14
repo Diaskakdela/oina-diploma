@@ -71,7 +71,6 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 app.UseStaticFiles();
-app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
