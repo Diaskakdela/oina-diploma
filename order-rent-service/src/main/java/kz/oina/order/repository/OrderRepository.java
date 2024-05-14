@@ -15,4 +15,6 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
 
     @Query("SELECT o FROM Order o WHERE o.status = :status AND o.updatedAt <= :cutoff")
     List<Order> findOrdersByStatusAndUpdatedBefore(OrderStatus status, LocalDateTime cutoff);
+
+    Optional<Order> findByRenterIdAndStatus(UUID renterId, OrderStatus status);
 }

@@ -25,4 +25,6 @@ public interface OrderItemService {
     Collection<OrderItem> findCompleted(UUID renterId);
 
     Collection<OrderItem> findPending(UUID renterId);
+    Collection<OrderItem> findPendingByOrderId(UUID orderID);
+
 }

@@ -119,6 +119,10 @@ public class DefaultOrderItemService implements OrderItemService {
     @Override
     public Collection<OrderItem> findPending(UUID renterId) {
         return orderItemRepository.findByRenterIdAndRentalStatus(renterId, RentalStatus.PENDING);
+    }
 
+    @Override
+    public Collection<OrderItem> findPendingByOrderId(UUID orderID) {
+        return orderItemRepository.findByOrderIdAndRentalStatus(orderID, RentalStatus.PENDING);
     }
 }

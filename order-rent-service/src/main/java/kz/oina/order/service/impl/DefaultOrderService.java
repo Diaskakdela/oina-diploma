@@ -35,6 +35,15 @@ public class DefaultOrderService implements OrderService {
     private final OrderItemService orderItemService;
 
     @Override
+    public OrderWithOrderItems getOrderByRenterId(UUID renterId) {
+        Order order = orderRepository.findByRenterIdAndStatus(renterId, OrderStatus.PENDING)
+                .orElseThrow(() -> new OrderNotFoundException("Renter with id " + renterId + " doesn't have any order"));
+        Collection<OrderItem> pendingByOrderId = orderItemService.findPendingByOrderId(order.getId());
+
+        return new OrderWithOrderItems(order, pendingByOrderId);
+    }
+
+    @Override
     @Transactional
     public OrderWithOrderItems createOrder(OrderCreationParam orderCreationParam) {
         var toyId = orderCreationParam.toyId();

@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface OrderService {
 
+    OrderWithOrderItems getOrderByRenterId(UUID renterId);
+
     OrderWithOrderItems createOrder(OrderCreationParam orderCreationParam);
 
     Order cancelOrder(UUID orderId);

@@ -13,10 +13,9 @@ import kz.oina.order.web.response.OrderWithOrderItemsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("order")
@@ -24,6 +23,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     private final OrderService orderService;
     private final OrderMapper orderMapper;
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<OrderWithOrderItemsDTO>> getAllOrders(@RequestParam UUID renterId) {
+        try {
+            var orderWithOrderItems = orderService.getOrderByRenterId(renterId);
+            var orderWithOrderItemsDTO = orderMapper.mapOrderWithItems(orderWithOrderItems);
+            return ResponseEntity.ok(ApiResponse.success(orderWithOrderItemsDTO));
+        } catch (OrderNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(ApiResponse.error(e.getMessage()));
+        }
+    }
 
     @PostMapping
     public ResponseEntity<ApiResponse<OrderWithOrderItemsDTO>> createOrder(@RequestBody OrderCreationRequest orderCreationRequest) {
