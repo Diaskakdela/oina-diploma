@@ -1,6 +1,8 @@
+using UserServiceOina.model;
+
 namespace UserServiceOina.service;
 
 public interface IAuthService
 {
-    string Authenticate(string email, string password);
+    AuthorizedUserDetails Authenticate(string email, string password);
 }

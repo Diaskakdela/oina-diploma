@@ -19,9 +19,9 @@ public class UserController(IAuthService authService, IUserService userService, 
     {
         try
         {
-            var token = authService.Authenticate(loginRequest.Email, loginRequest.Password);
+            var userDetails = authService.Authenticate(loginRequest.Email, loginRequest.Password);
 
-            return Ok(new LoginResponse(token));
+            return Ok(LoginResponse.FromUserDetails(userDetails));
         }
         catch (AuthenticationException e)
         {
@@ -54,8 +54,10 @@ public class UserController(IAuthService authService, IUserService userService, 
     {
         try
         {
-            var token = userService.RegisterAdmin(userMapper.MapToRegistrationParams(registrationRequest));
-            return Ok(new { Token = token });
+            var authorizedUserDetails =
+                userService.RegisterAdmin(userMapper.MapToRegistrationParams(registrationRequest));
+
+            return Ok(LoginResponse.FromUserDetails(authorizedUserDetails));
         }
         catch (UserRegistrationException ure)
         {

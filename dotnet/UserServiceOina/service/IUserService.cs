@@ -7,6 +7,6 @@ namespace UserServiceOina.service;
 public interface IUserService
 {
     public event UserRegistrationEventHandler UserRegistered;
-    string RegisterUser(UserRegistrationParams userRegistrationParams);
-    string RegisterAdmin(UserRegistrationParams userRegistrationParams);
+    AuthorizedUserDetails RegisterUser(UserRegistrationParams userRegistrationParams);
+    AuthorizedUserDetails RegisterAdmin(UserRegistrationParams userRegistrationParams);
 }

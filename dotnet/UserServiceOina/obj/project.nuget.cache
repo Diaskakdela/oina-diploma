@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qCIfQFk3hC2LKtTDklp8qz0u/uLFI2p8KdyVQDqTcgIIDNNgG3OB2IJhc7qc0V+SfKAPKOqJrnvgvY1DyL7X6g==",
+  "dgSpecHash": "Fh5yKiFhO7NPMu++8oaNCmDImkpBQkB9bP+Y0kfDPwbgXypS4zyy2Qniqa0kcnUTNUr7+iVHC+QyqiIG3qp0Tg==",
   "success": true,
-  "projectFilePath": "/Users/dosp/RiderProjects/UserServiceOina/UserServiceOina/UserServiceOina.csproj",
+  "projectFilePath": "/Users/dosp/IdeaProjects/OinaPlatform/dotnet/UserServiceOina/UserServiceOina.csproj",
   "expectedPackageFiles": [
     "/Users/dosp/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/dosp/.nuget/packages/confluent.kafka/2.3.0/confluent.kafka.2.3.0.nupkg.sha512",

@@ -8,7 +8,7 @@ namespace UserServiceOina.service.impl;
 public class AuthService(IUserRepository userRepository, IJwtService jwtService, IRenterRepository renterRepository)
     : IAuthService
 {
-    public string Authenticate(string email, string password)
+    public AuthorizedUserDetails Authenticate(string email, string password)
     {
         var user = userRepository.FindUserByEmail(email);
         if (!IsPasswordCorrect(user, password))
@@ -17,7 +17,12 @@ public class AuthService(IUserRepository userRepository, IJwtService jwtService,
         }
 
         var renterId = renterRepository.FindByUserId(user.Id).Id;
-        return jwtService.GenerateToken(JwtUserDetails.Create(user, renterId));
+        var token =  jwtService.GenerateToken(JwtUserDetails.Create(user, renterId));
+        ICollection<string> roles = user.UserRoles
+            .Select(ur => ur.Role.ToString().ToUpper())
+            .ToList();
+        
+        return new AuthorizedUserDetails(renterId, token, roles);
     }
 
     private bool IsPasswordCorrect(User? user, string providedPassword)

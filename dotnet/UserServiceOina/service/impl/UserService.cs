@@ -16,7 +16,7 @@ public class UserService(
 {
     public event UserRegistrationEventHandler? UserRegistered;
 
-    private string RegisterWithRole(UserRegistrationParams userRegistrationParams, RoleEnum role)
+    private AuthorizedUserDetails RegisterWithRole(UserRegistrationParams userRegistrationParams, RoleEnum role)
     {
         logger.LogInformation(
             $"Attempting to register new user with email: {userRegistrationParams.Email} and role: {role}");
@@ -31,6 +31,9 @@ public class UserService(
         var savedUser = userRepository.RegisterUserWithRole(user, role);
         var renterId = renterService.CreateNewRenter(new RenterCreationParams(savedUser.Id));
         logger.LogInformation($"User registered successfully with ID: {savedUser.Id}");
+        var roles = user.UserRoles
+            .Select(ur => ur.Role.ToString().ToUpper())
+            .ToList();
 
         var token = jwtService.GenerateToken(JwtUserDetails.Create(savedUser, renterId));
 
@@ -38,15 +41,15 @@ public class UserService(
 
         logger.LogInformation($"JWT token generated for user ID: {savedUser.Id}");
 
-        return token;
+        return new AuthorizedUserDetails(renterId, token, roles);
     }
 
-    public string RegisterUser(UserRegistrationParams userRegistrationParams)
+    public AuthorizedUserDetails RegisterUser(UserRegistrationParams userRegistrationParams)
     {
         return RegisterWithRole(userRegistrationParams, RoleEnum.User);
     }
 
-    public string RegisterAdmin(UserRegistrationParams userRegistrationParams)
+    public AuthorizedUserDetails RegisterAdmin(UserRegistrationParams userRegistrationParams)
     {
         return RegisterWithRole(userRegistrationParams, RoleEnum.Admin);
     }

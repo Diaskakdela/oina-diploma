@@ -3349,11 +3349,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dosp/RiderProjects/UserServiceOina/UserServiceOina/UserServiceOina.csproj",
+      "projectUniqueName": "/Users/dosp/IdeaProjects/OinaPlatform/dotnet/UserServiceOina/UserServiceOina.csproj",
       "projectName": "UserServiceOina",
-      "projectPath": "/Users/dosp/RiderProjects/UserServiceOina/UserServiceOina/UserServiceOina.csproj",
+      "projectPath": "/Users/dosp/IdeaProjects/OinaPlatform/dotnet/UserServiceOina/UserServiceOina.csproj",
       "packagesPath": "/Users/dosp/.nuget/packages/",
-      "outputPath": "/Users/dosp/RiderProjects/UserServiceOina/UserServiceOina/obj/",
+      "outputPath": "/Users/dosp/IdeaProjects/OinaPlatform/dotnet/UserServiceOina/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/dosp/.nuget/NuGet/NuGet.Config"
