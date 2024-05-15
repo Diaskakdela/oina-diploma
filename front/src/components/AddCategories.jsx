@@ -47,7 +47,7 @@ function AddCategories() {
 
     
         return (
-            <div className="Singup" id = "1category">
+            <div className="AddCat" >
                 <h1>Добавление категорий</h1>
                 <form onSubmit={AddCategory}>
                     <div className="form-text">

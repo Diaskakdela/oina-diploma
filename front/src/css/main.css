@@ -354,7 +354,7 @@ hr {
     }
 }
 
-.Singup {
+.Signup {
     background-color: white;
     border-radius: 20px;
     margin-top: 30px;
@@ -367,7 +367,7 @@ hr {
 
 }
 
-.Singup input {
+.Signup input {
     border-radius: 10px;
     border-width: 1px;
     padding: 8px 7px;
@@ -375,7 +375,7 @@ hr {
     width: 600px;
 }
 
-.Singup select {
+.Signup select {
     border-radius: 10px;
     border-width: 1px;
     padding: 8px 7px;
@@ -383,7 +383,7 @@ hr {
     width: 600px;
 }
 
-.Singup option {
+.Signup option {
     border-radius: 10px;
     font-size: 18px;
     color: black;
@@ -394,7 +394,7 @@ hr {
     line-height: 40px;
 }
 
-.Singup img {
+.Signup img {
     width: 200px;
     background: orange;
     border-radius: 50%;
@@ -402,15 +402,55 @@ hr {
     cursor: pointer;
 }
 
-.Singup a {
+.Signup a {
     line-height: 30px;
 }
 
 
-.Singup h4 {
+.Signup h4 {
     font-size: 25px;
 }
 
+.AddCat {
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1050px;
+    padding: 50px;
+    padding-bottom: 80px;
+
+}
+
+.AddCat input {
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 8px 7px;
+    font-size: 18px;
+    width: 600px;
+}
+
+.AddCat .form-text {
+    margin-top: 10px;
+    line-height: 40px;
+    margin-bottom: 40px;
+}
+
+.AddCat a {
+    line-height: 30px;
+}
+
+
+.AddCat h4 {
+    font-size: 25px;
+}
+
+.AddCat h1 {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
 
 .Sub-plans {
     margin-left: auto;
@@ -465,6 +505,37 @@ hr {
     font-size: 22px;
 }
 
-#1category {
-    margin-bottom: 100px;
+.toys-catalog {
+    border-radius: 20px;
+    margin-top: 30px;
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 50px;
 }
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.toys-catalog h1{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.category {
+    margin-right: 30px;
+}
+
+.category select{
+    border-width: 1px;
+    padding: 8px 7px;
+    font-size: 15px;
+    width: 250px;
+}
+
+
+

@@ -32,7 +32,6 @@ function AddToys() {
                 });
                 const data = await response.json();
                 setCategories(data);
-                console.log(data)
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -72,8 +71,8 @@ function AddToys() {
                 });
                 const data = await response.json();
 
-                if (data.id) {
-                    alert('Игрушка успешно добавлена');
+                if (data) {
+                    alert('Игрушка успешно добавлена')
                 } 
             } catch (error) {
                 console.error('Error adding toy:', error);
@@ -83,7 +82,7 @@ function AddToys() {
     }
 
     return (
-        <div className="Singup">
+        <div className="Signup">
             <h1>Добавление игрушек</h1>
             <form onSubmit={AddToy}>
                 <div className="form-text">

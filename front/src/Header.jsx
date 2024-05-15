@@ -3,8 +3,8 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import Toys from './components/Toys';
 import AboutUs from './components/AboutUs';
-import Singin from './components/Singin';
-import Singup from './components/Singup';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
 import Subscription from './components/Subscription';
 import AddToys from './components/AddToys';
 import AddCategories from './components/AddCategories';
@@ -22,7 +22,7 @@ function Header() {
     if (localStorage.token) {
       buttonToLogOut = <li><Link onClick={logout}>Выйти</Link></li>;
     } else {
-      buttonToLogOut = <li><Link to="/Singin">Войти</Link></li>;
+      buttonToLogOut = <li><Link to="/Signin">Войти</Link></li>;
     }
 
     let buttonToAddToys;
@@ -56,8 +56,8 @@ function Header() {
         <Route exact path="/AddCategories" element={<AddCategories />} />
         <Route exact path="/Subscription" element={<Subscription />} />
         <Route exact path="/AboutUs" element={<AboutUs />} />
-        <Route exact path="/Singin" element={<Singin />} />
-        <Route exact path="/Singup" element={<Singup />} />
+        <Route exact path="/Signin" element={<Signin />} />
+        <Route exact path="/Signup" element={<Signup />} />
       </Routes>
     </>
   );

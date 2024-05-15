@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../img/oina.png';
 
-function Singin() {
+function Signin() {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
     const navigate = useNavigate()
@@ -39,7 +39,7 @@ function Singin() {
         }
     }
     return (
-        <div className="Singup">
+        <div className="Signup">
             <img src={logo} alt="" />
             <form onSubmit={loginUser}>
                 <div className="form-text">
@@ -51,10 +51,10 @@ function Singin() {
                     <input type="password" name="Password" id="Password" placeholder="Введите пароль" minLength="4" value={Password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <br /><button type="submit" className="button" >Войти</button>
-                <br />Впервые у нас? <Link to="/Singup">Зарегистрируйтесь!</Link>
+                <br />Впервые у нас? <Link to="/Signup">Зарегистрируйтесь!</Link>
             </form>
         </div>
     )
 }
 
-export default Singin;
+export default Signin;

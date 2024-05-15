@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../img/oina.png';
 
 
-function Singup() {
+function Signup() {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
     const [FirstName, setFirstName] = useState('')
@@ -49,7 +49,7 @@ function Singup() {
 
 
     return (
-        <div className="Singup">
+        <div className="Signup">
             <img src={logo} alt="" />
             <form onSubmit={registerUser}>
                 <div className="form-text">
@@ -73,7 +73,7 @@ function Singup() {
                     <input type="password" name="Password" id="Password" placeholder="Введите пароль" minLength="4" value={Password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <br /><button type="submit" className="button" >Зарегистрироваться</button>
-                <br />Уже создан аккаунт? <Link to="/Singin">Войдите!</Link>
+                <br />Уже создан аккаунт? <Link to="/Signin">Войдите!</Link>
             </form>
         </div>
     )
@@ -81,4 +81,4 @@ function Singup() {
 
 }
 
-export default Singup;
+export default Signup;
