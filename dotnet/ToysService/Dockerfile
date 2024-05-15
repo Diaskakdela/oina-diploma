@@ -14,5 +14,7 @@ FROM build AS publish
 RUN dotnet publish "ToysService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+WORKDIR /app
+RUN mkdir -p /app/path_to_images_directory
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ToysService.dll"]

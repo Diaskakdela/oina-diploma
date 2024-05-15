@@ -79,6 +79,8 @@ services:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=oina;Username=postgres;Password=postgres
       - jwt__key=b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
       - Logging__LogLevel__Microsoft.AspNetCore=Warning
+    volumes:
+      - ./path_to_images_directory:/app/path_to_images_directory
     depends_on:
       - postgres
 
