@@ -27,7 +27,7 @@ function Singup() {
             alert('Пожалуйста заполните все поля');
             return;
         } else {
-            const response = await fetch('http://localhost:8085/register', {
+            const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
