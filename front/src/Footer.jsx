@@ -1,11 +1,9 @@
 import React from "react";
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import fb from './img/facebook.png';
 import twitter from './img/twitter.png';
 import insta from './img/insta.png';
 import youtube from './img/youtube.png';
-import Toys from './components/Toys';
-import AboutUs from './components/AboutUs';
 
 
 function Footer() {

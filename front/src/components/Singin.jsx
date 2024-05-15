@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../img/oina.png';
 
 function Singin() {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-
+    const navigate = useNavigate()
 
     async function loginUser(event) {
         event.preventDefault()
@@ -19,7 +19,7 @@ function Singin() {
             alert('Пожалуйста заполните все поля');
             return;
         } else {
-            const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/login`, {
+            const response = await fetch('http://localhost:8085/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,9 +30,9 @@ function Singin() {
 
             if (data.token) {
                 localStorage.setItem('token', data.token)
-                localStorage.setItem('roles', data.roles)
+                localStorage.setItem('role', data.roles)
                 alert('Авторизация успешна')
-                window.location.href = '/Home'
+                navigate('/Home')
             } else {
                 alert('Please check your username and password')
             }

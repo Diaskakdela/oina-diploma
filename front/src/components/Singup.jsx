@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../img/oina.png';
-
-
 
 
 function Singup() {
@@ -11,6 +9,7 @@ function Singup() {
     const [FirstName, setFirstName] = useState('')
     const [LastName, setLastName] = useState('')
     const [Phone, setPhone] = useState('')
+    const navigate = useNavigate()
 
     async function registerUser(event) {
         event.preventDefault()
@@ -27,7 +26,7 @@ function Singup() {
             alert('Пожалуйста заполните все поля');
             return;
         } else {
-            const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_URL}/register`, {
+            const response = await fetch('http://localhost:8085/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +39,7 @@ function Singup() {
             if (data.token) {
                 localStorage.setItem('token', data.token)
                 alert('Регистрация успешна')
-                window.location.href = '/Home'
+                navigate('/Home')
             } else {
                 alert('Something wrong')
             }

@@ -1,5 +1,5 @@
 import React from "react"
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import Toys from './components/Toys';
 import AboutUs from './components/AboutUs';
@@ -7,14 +7,16 @@ import Singin from './components/Singin';
 import Singup from './components/Singup';
 import Subscription from './components/Subscription';
 import AddToys from './components/AddToys';
+import AddCategories from './components/AddCategories';
 import logo from './img/oina.png';
 
 function Header() {
+  const navigate = useNavigate()
 
   function logout(){
       localStorage.clear();
       window.location.reload();
-      window.location.href = '/Home'
+      navigate('/Home')
   }
   let buttonToLogOut;
     if (localStorage.token) {
@@ -24,7 +26,7 @@ function Header() {
     }
 
     let buttonToAddToys;
-    if (localStorage.roles === "ADMIN" || localStorage.roles === "USER and ADMIN") {
+    if (localStorage.role === "ADMIN" || localStorage.role === "USER and ADMIN") {
       buttonToAddToys = <li><Link to="/AddToys">Add toys</Link></li>;
     } else {
       buttonToAddToys = null;
@@ -47,14 +49,15 @@ function Header() {
         </div>
       </section >
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/Toys" element={<Toys />} />
-        <Route path="/AddToys" element={<AddToys />} />
-        <Route path="/Subscription" element={<Subscription />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/Singin" element={<Singin />} />
-        <Route path="/Singup" element={<Singup />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/Home" element={<Home />} />
+        <Route exact path="/Toys" element={<Toys />} />
+        <Route exact path="/AddToys" element={<AddToys />} />
+        <Route exact path="/AddCategories" element={<AddCategories />} />
+        <Route exact path="/Subscription" element={<Subscription />} />
+        <Route exact path="/AboutUs" element={<AboutUs />} />
+        <Route exact path="/Singin" element={<Singin />} />
+        <Route exact path="/Singup" element={<Singup />} />
       </Routes>
     </>
   );
