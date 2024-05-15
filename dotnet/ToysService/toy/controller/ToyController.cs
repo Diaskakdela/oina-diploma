@@ -34,11 +34,12 @@ public class ToyController(IToyService toyService, ToyMapper toyMapper) : Contro
 
     [HttpPost]
     [Authorize(Roles = "ADMIN")]
-    public IActionResult Save([FromBody] ToyCreationRequest toyCreationRequest)
+    public async Task<IActionResult> Save([FromForm] ToyCreationRequest toyCreationRequest)
     {
         try
         {
-            var creationParams = toyMapper.MapToCreationParams(toyCreationRequest);
+            var imageName = await SaveImageAsync(toyCreationRequest.ImageFile);
+            var creationParams = toyMapper.MapToCreationParams(toyCreationRequest, imageName);
             var createdToy = toyService.Create(creationParams);
             return Ok(new { Toy = createdToy });
         }
@@ -79,5 +80,22 @@ public class ToyController(IToyService toyService, ToyMapper toyMapper) : Contro
         {
             return StatusCode(500, "An error occurred while updating toy.");
         }
+    }
+
+    private async Task<string> SaveImageAsync(IFormFile file)
+    {
+        var directoryPath = "path_to_images_directory";
+        var fileExtension = Path.GetExtension(file.FileName);
+        var fileName = Guid.NewGuid() + fileExtension;
+        var filePath = Path.Combine(directoryPath, fileName);
+
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        await using var stream = new FileStream(filePath, FileMode.Create);
+        await file.CopyToAsync(stream);
+        return fileName;
     }
 }

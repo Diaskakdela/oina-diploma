@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToysService", "ToysService\ToysService.csproj", "{A1D894D2-6625-47EF-9033-535A1A6995A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserServiceOina", "UserServiceOina\UserServiceOina.csproj", "{27678426-3F5D-4237-951B-D6630AE96220}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1D894D2-6625-47EF-9033-535A1A6995A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1D894D2-6625-47EF-9033-535A1A6995A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1D894D2-6625-47EF-9033-535A1A6995A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1D894D2-6625-47EF-9033-535A1A6995A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27678426-3F5D-4237-951B-D6630AE96220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27678426-3F5D-4237-951B-D6630AE96220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27678426-3F5D-4237-951B-D6630AE96220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27678426-3F5D-4237-951B-D6630AE96220}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

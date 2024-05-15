@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using ToysService.category.model;
 using ToysService.category.repository;
@@ -68,9 +69,13 @@ builder.Services.AddAuthentication(options =>
 
 
 var app = builder.Build();
-
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "path_to_images_directory")),
+    RequestPath = "/Images"
+});
 app.UseCors("AllowAll");
-app.UseStaticFiles();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();

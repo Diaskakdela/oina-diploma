@@ -1,3 +1,27 @@
+# Игнорировать содержимое папок bin и obj
+**/[Bb]in/
+**/[Oo]bj/
+
+# Игнорировать файлы сессий NuGet
+**/*.nuget.dgspec.json
+**/*.nuget.g.props
+**/*.nuget.g.targets
+
+# Игнорировать файлы кэша и локальных настроек IDE
+**/.vs/
+**/.vscode/
+*.user
+*.suo
+*.userprefs
+
+# Игнорировать временные файлы, создаваемые при выполнении
+project.lock.json
+project.fragment.lock.json
+artifact.xml
+**/*.tmp
+**/*.cache
+**/*.tgz
+
 HELP.md
 .gradle
 build/

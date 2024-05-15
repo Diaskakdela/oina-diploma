@@ -89,10 +89,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_USER_SERVICE_URL: http://user-service-oina:8080
-      REACT_APP_TOY_SERVICE_URL: http://toys-service:8080
-      REACT_APP_INVENTORY_SERVICE_URL: http://inventory-service:8080
-      REACT_APP_ORDER_SERVICE_URL: http://order-rent-service:8080
+      REACT_APP_USER_SERVICE_URL: http://localhost:8085
+      REACT_APP_TOY_SERVICE_URL: http://localhost:8084
+      REACT_APP_INVENTORY_SERVICE_URL: http://localhost:8081
+      REACT_APP_ORDER_SERVICE_URL: http://localhost:8082
 
 volumes:
   postgres-data:

@@ -4,11 +4,11 @@ namespace ToysService.toy.model;
 
 public class ToyMapper
 {
-    public ToyCreationParams MapToCreationParams(ToyCreationRequest toyCreationRequest)
+    public ToyCreationParams MapToCreationParams(ToyCreationRequest toyCreationRequest, String imageUrl)
     {
         return new ToyCreationParams(toyCreationRequest.Name, toyCreationRequest.Description,
             toyCreationRequest.AgeRange,
-            toyCreationRequest.CategoryId, toyCreationRequest.Price, toyCreationRequest.ImageUrl);
+            toyCreationRequest.CategoryId, toyCreationRequest.Price, imageUrl);
     }
 
     public ToyUpdateParams MapToUpdateParams(ToyUpdateRequest toyUpdateRequest)
