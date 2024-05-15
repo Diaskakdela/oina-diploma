@@ -104,22 +104,22 @@ public class DefaultOrderItemService implements OrderItemService {
 
     @Override
     public Collection<OrderItem> findActiveOrderItemsByRenterId(UUID renterId) {
-        return orderItemRepository.findByRenterIdAndRentalStatus(renterId, RentalStatus.ACTIVE);
+        return orderItemRepository.findAllByRenterIdAndRentalStatus(renterId, RentalStatus.ACTIVE);
     }
 
     @Override
     public Collection<OrderItem> findCompleted(UUID renterId) {
-        return orderItemRepository.findByRenterIdAndRentalStatus(renterId, RentalStatus.COMPLETED);
+        return orderItemRepository.findAllByRenterIdAndRentalStatus(renterId, RentalStatus.COMPLETED);
 
     }
 
     @Override
     public Collection<OrderItem> findPending(UUID renterId) {
-        return orderItemRepository.findByRenterIdAndRentalStatus(renterId, RentalStatus.PENDING);
+        return orderItemRepository.findAllByRenterIdAndRentalStatus(renterId, RentalStatus.PENDING);
     }
 
     @Override
     public Collection<OrderItem> findPendingByOrderId(UUID orderID) {
-        return orderItemRepository.findByOrderIdAndRentalStatus(orderID, RentalStatus.PENDING);
+        return orderItemRepository.findAllByOrderIdAndRentalStatus(orderID, RentalStatus.PENDING);
     }
 }
