@@ -24,7 +24,7 @@ function AddToys() {
     useEffect(() => {
         async function fetchCategories() {
             try {
-                const response = await fetch('http://localhost:8084/category', {
+                const response = await fetch(`${process.env.REACT_APP_TOY_SERVICE_URL}/category`, {
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.token
@@ -62,7 +62,7 @@ function AddToys() {
             return;
         } else {
             try {
-                const response = await fetch('http://localhost:8084/toys', {
+                const response = await fetch(`${process.env.REACT_APP_TOY_SERVICE_URL}/toys`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

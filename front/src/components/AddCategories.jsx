@@ -16,7 +16,7 @@ function AddCategories() {
             alert('Пожалуйста заполните все поля');
             return;
         } else {
-            const response = await fetch('http://localhost:8084/category', {
+            const response = await fetch(`${process.env.REACT_APP_TOY_SERVICE_URL}/category`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
