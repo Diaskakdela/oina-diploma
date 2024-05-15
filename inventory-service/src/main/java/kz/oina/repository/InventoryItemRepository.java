@@ -27,5 +27,10 @@ public interface InventoryItemRepository extends JpaRepository<InventoryItem, UU
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<InventoryItem> findByToyIdAndStatus(@Param("toyId") UUID toyId, @Param("status") InventoryStatus status, @Param("count") int count);
 
+    @Query("SELECT i.toyId as toyId, COUNT(i) as count FROM InventoryItem i WHERE i.status = :status GROUP BY i.toyId HAVING COUNT(i) > 0")
+    List<ToyIdCountProjection> countAvailableToysGroupedByToyId(@Param("status") InventoryStatus status);
 
+    boolean existsByToyId(UUID toyId);
+
+    int countByToyIdAndStatus(UUID toyId, InventoryStatus status);
 }

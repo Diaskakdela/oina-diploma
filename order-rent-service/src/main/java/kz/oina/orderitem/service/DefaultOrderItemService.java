@@ -29,13 +29,10 @@ public class DefaultOrderItemService implements OrderItemService {
 
     @Override
     public Collection<OrderItem> createOrderItem(OrderItemCreationParams creationParams) {
-        var toyId = creationParams.toyId();
-        int count = creationParams.count();
         var orderId = creationParams.orderId();
-        var renterId = creationParams.renterId();
         log.info("Create order items for order with id={}", orderId);
-        var inventoryItems = inventoryIntegrationService.reserveInventory(new ReserveInventoryParams(toyId, count));
-        var createdOrderItems = orderItemFactory.createOrderItems(new OrderItemDetails(inventoryItems, orderId, renterId));
+        var inventoryItems = inventoryIntegrationService.reserveInventory(new ReserveInventoryParams(creationParams.toyId(), creationParams.count()));
+        var createdOrderItems = orderItemFactory.createOrderItems(new OrderItemDetails(inventoryItems, orderId, creationParams.renterId()));
         log.info("Created order items for order with id={}. Created order items={}", orderId, createdOrderItems);
         try {
             return orderItemRepository.saveAll(createdOrderItems);
