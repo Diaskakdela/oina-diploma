@@ -1,5 +1,5 @@
 import React from "react"
-import { Routes, Route, Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 function Subscription() {
     return (
@@ -14,7 +14,7 @@ function Subscription() {
                     <h2>Цена: 10000 тенге.</h2>
                     </div>
                     <div className="Sub-button">
-                    <a class="button" id="button">10000 тенге</a>
+                    <Link className="button" id="button">10000 тенге</Link>
                     </div>
                 </div>
                 <div className="Sub-plan">
@@ -24,7 +24,7 @@ function Subscription() {
                     <h2>ВЫГОДНО!</h2>
                     </div>
                     <div className="Sub-button">
-                    <a class="button" id="button">8000 тенге/месяц</a>
+                    <Link className="button" id="button">8000 тенге/месяц</Link>
                     <h4>24000 тенге каждые 3 месяца</h4>
                     </div>
                     
@@ -36,7 +36,7 @@ function Subscription() {
                     <h2>ВЫГОДНО!!!</h2>
                     </div>
                     <div className="Sub-button">
-                    <a class="button" id="button">7500 тенге/месяц</a>
+                    <Link className="button" id="button">7500 тенге/месяц</Link>
                     <h4>90000 тенге каждые 12 месяцев</h4>
                     </div>
 

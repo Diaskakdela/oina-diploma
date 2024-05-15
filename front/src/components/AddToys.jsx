@@ -1,6 +1,6 @@
 import React from "react"
 
-function AboutUs() {
+function AddToys() {
     return (
         <div className="aboutus-text">
             <h2>О нас!</h2>
@@ -23,4 +23,4 @@ function AboutUs() {
     )
 }
 
-export default AboutUs;
+export default AddToys;
