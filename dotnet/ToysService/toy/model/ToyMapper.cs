@@ -13,7 +13,11 @@ public class ToyMapper
 
     public ToyUpdateParams MapToUpdateParams(ToyUpdateRequest toyUpdateRequest)
     {
-        return new ToyUpdateParams(toyUpdateRequest.Name, toyUpdateRequest.Description, toyUpdateRequest.AgeRange,
-            toyUpdateRequest.CategoryId, toyUpdateRequest.Price, toyUpdateRequest.ImageUrl);
+        return new ToyUpdateParams(toyUpdateRequest.Name,
+            toyUpdateRequest.Description,
+            toyUpdateRequest.AgeRange,
+            toyUpdateRequest.CategoryId,
+            toyUpdateRequest.Price,
+            toyUpdateRequest.ImageUrl);
     }
 }

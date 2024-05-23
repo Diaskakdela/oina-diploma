@@ -50,10 +50,10 @@ public class ToyService(IToyRepository toyRepository, ToyFactory toyFactory) : I
             toyToUpdate.Description = updateParams.Description;
         if (!string.IsNullOrEmpty(updateParams.AgeRange))
             toyToUpdate.AgeRange = updateParams.AgeRange;
-        if (updateParams.CategoryId != Guid.Empty)
-            toyToUpdate.CategoryId = updateParams.CategoryId;
+        if (!string.IsNullOrEmpty(updateParams.CategoryId))
+            toyToUpdate.CategoryId = Guid.Parse(updateParams.CategoryId);
         if (updateParams.Price > 0)
-            toyToUpdate.Price = updateParams.Price;
+            toyToUpdate.Price = updateParams.Price.Value;
         if (!string.IsNullOrEmpty(updateParams.ImageUrl))
             toyToUpdate.ImageUrl = updateParams.ImageUrl;
     }
