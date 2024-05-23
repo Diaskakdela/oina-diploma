@@ -1,7 +1,6 @@
 package kz.oina.service.impl;
 
 import kz.oina.entity.InventoryStatus;
-import kz.oina.exceptions.toy.ItemNotInInventoryException;
 import kz.oina.model.InventoryToyDetails;
 import kz.oina.repository.InventoryItemRepository;
 import kz.oina.repository.ToyIdCountProjection;
@@ -31,7 +30,7 @@ public class DefaultInventoryService implements InventoryService {
     @Override
     public InventoryToyDetails findToyAvailability(UUID toyId) {
         if (!inventoryItemRepository.existsByToyId(toyId)) {
-            throw ItemNotInInventoryException.toyIdNotFound(toyId);
+            return new InventoryToyDetails(toyId, 0);
         }
         int count = inventoryItemRepository.countByToyIdAndStatus(toyId, InventoryStatus.AVAILABLE);
         return new InventoryToyDetails(toyId, count);
