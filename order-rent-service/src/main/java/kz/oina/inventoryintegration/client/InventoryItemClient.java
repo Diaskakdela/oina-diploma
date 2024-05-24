@@ -21,7 +21,7 @@ public class InventoryItemClient {
 
     public ReserveInventoryIntegrationResponse reserveInventory(ReserveInventoryIntegrationRequest reserveInventoryIntegrationRequest) {
         return inventoryItemRestClient.post()
-                .uri("/inventory/reserve")
+                .uri("/inventory/service/reserve")
                 .body(reserveInventoryIntegrationRequest)
                 .retrieve()
                 .body(ReserveInventoryIntegrationResponse.class);
@@ -29,7 +29,7 @@ public class InventoryItemClient {
 
     public CancelInventoryIntegrationResponse cancelAllReserve(Collection<CancelReserveIntegrationRequest> cancelReserveIntegrationRequest) {
         return inventoryItemRestClient.post()
-                .uri("/inventory/cancel-reserve-all")
+                .uri("/inventory/service/cancel-reserve-all")
                 .body(cancelReserveIntegrationRequest)
                 .retrieve()
                 .body(CancelInventoryIntegrationResponse.class);
@@ -37,7 +37,7 @@ public class InventoryItemClient {
 
     public RentInventoryIntegrationResponse rentAllInventories(Collection<RentInventoryIntegrationRequest> rentInventoryIntegrationRequest) {
         return inventoryItemRestClient.post()
-                .uri("/inventory/rent-all")
+                .uri("/inventory/service/rent-all")
                 .body(rentInventoryIntegrationRequest)
                 .retrieve()
                 .body(RentInventoryIntegrationResponse.class);
@@ -45,7 +45,7 @@ public class InventoryItemClient {
 
     public ReturnInventoryIntegrationResponse returnAllInventory(Collection<ReturnInventoryIntegrationRequest> returnInventoryIntegrationRequest) {
         return inventoryItemRestClient.post()
-                .uri("/inventory/return-all")
+                .uri("/inventory/service/return-all")
                 .body(returnInventoryIntegrationRequest)
                 .retrieve()
                 .body(ReturnInventoryIntegrationResponse.class);
