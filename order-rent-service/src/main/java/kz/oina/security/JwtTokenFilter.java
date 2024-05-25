@@ -3,9 +3,7 @@ package kz.oina.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,10 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,13 +34,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         log.info("jwt filter");
 
         String token = request.getHeader("Authorization");
-        if (token != null && token.startsWith("Bearer ")) {
-            var decodedJWT = getJwtVerifier().verify(token.substring(7));
+        try {
+            if (token != null && token.startsWith("Bearer ")) {
+                var decodedJWT = getJwtVerifier().verify(token.substring(7));
 
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    decodedJWT.getSubject(), null, List.of(new SimpleGrantedAuthority("ROLE_" + decodedJWT.getClaim("role").asString()))
-            );
-            SecurityContextHolder.getContext().setAuthentication(auth);
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                        decodedJWT.getSubject(), null, List.of(new SimpleGrantedAuthority("ROLE_" + decodedJWT.getClaim("role").asString()))
+                );
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        } catch (JWTVerificationException e) {
+            log.error("Error verifying JWT: {}", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
         filterChain.doFilter(request, response);
     }
