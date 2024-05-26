@@ -2,6 +2,7 @@ package kz.oina.order.service.impl;
 
 import kz.oina.order.entity.Order;
 import kz.oina.order.entity.OrderStatus;
+import kz.oina.order.exceptions.OrderAlreadyExistsException;
 import kz.oina.order.exceptions.OrderNotFoundException;
 import kz.oina.order.factory.OrderFactory;
 import kz.oina.order.model.OrderCreationParam;
@@ -46,6 +47,10 @@ public class DefaultOrderService implements OrderService {
     @Override
     @Transactional
     public OrderWithOrderItems createOrder(OrderCreationParam orderCreationParam) {
+        var existingOrder = orderRepository.findByRenterIdAndStatus(orderCreationParam.renterId(), OrderStatus.PENDING);
+        if (existingOrder.isPresent()) {
+            throw new OrderAlreadyExistsException("PENDING order already exists");
+        }
         var toyId = orderCreationParam.toyId();
         var count = orderCreationParam.count();
         var renterId = orderCreationParam.renterId();

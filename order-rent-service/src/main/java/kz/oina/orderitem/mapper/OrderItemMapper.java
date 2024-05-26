@@ -1,6 +1,8 @@
 package kz.oina.orderitem.mapper;
 
 import kz.oina.orderitem.entity.OrderItem;
+import kz.oina.orderitem.model.OrderItemCreationParams;
+import kz.oina.orderitem.web.request.OrderItemAddRequest;
 import kz.oina.orderitem.web.response.OrderItemDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,4 +15,5 @@ public interface OrderItemMapper {
     @Mapping(expression = "java(orderItem.getRentalStatus())", target = "status")
     OrderItemDTO toDto(OrderItem orderItem);
 
+    OrderItemCreationParams toCreateParams(OrderItemAddRequest request);
 }

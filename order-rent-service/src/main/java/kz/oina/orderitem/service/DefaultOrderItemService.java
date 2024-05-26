@@ -39,7 +39,7 @@ public class DefaultOrderItemService implements OrderItemService {
         } catch (Exception e) {
             log.error("Error while creating orderItems. {}", creationParams, e);
             inventoryIntegrationService.cancelReserve(inventoryItems);
-            throw new OrderCreatingException("Error while creating order", e);
+            throw new OrderCreatingException("Error while creating order item", e);
         }
     }
 
