@@ -11,7 +11,6 @@ import kz.oina.order.web.request.RentOrderRequest;
 import kz.oina.order.web.response.OrderDTO;
 import kz.oina.order.web.response.OrderWithOrderItemsDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +30,7 @@ public class OrderController {
             var orderWithOrderItemsDTO = orderMapper.mapOrderWithItems(orderWithOrderItems);
             return ResponseEntity.ok(ApiResponse.success(orderWithOrderItemsDTO));
         } catch (OrderNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
+            return ResponseEntity.ok(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(ApiResponse.error(e.getMessage()));
         }
@@ -54,7 +53,7 @@ public class OrderController {
             var order = orderService.payOrder(payOrderRequest.orderId());
             return ResponseEntity.ok(ApiResponse.success(OrderDTO.from(order)));
         } catch (OrderNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
+            return ResponseEntity.ok(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(ApiResponse.error(e.getMessage()));
         }
@@ -66,7 +65,7 @@ public class OrderController {
             var order = orderService.rentOrder(rentOrderRequest.orderId());
             return ResponseEntity.ok(ApiResponse.success(OrderDTO.from(order)));
         } catch (OrderNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
+            return ResponseEntity.ok(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(ApiResponse.error(e.getMessage()));
         }
@@ -78,7 +77,7 @@ public class OrderController {
             var order = orderService.cancelOrder(cancelOrderRequest.orderId());
             return ResponseEntity.ok(ApiResponse.success(OrderDTO.from(order)));
         } catch (OrderNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error(e.getMessage()));
+            return ResponseEntity.ok(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(ApiResponse.error(e.getMessage()));
         }
