@@ -16,8 +16,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, UUID> {
 
     Collection<OrderItem> findByOrderId(UUID orderId);
 
-    @Query("SELECT oi FROM OrderItem oi WHERE oi.orderId = :orderId AND oi.rental.status = :rentalStatus")
-    Collection<OrderItem> findAllByOrderIdAndRentalStatus(UUID orderId, RentalStatus rentalStatus);
+    List<OrderItem> findAllByOrderId(UUID orderId);
 
     @Query("SELECT oi FROM OrderItem oi WHERE oi.renterId = :renterId AND oi.rental.status = :status")
     List<OrderItem> findAllByRenterIdAndRentalStatus(@Param("renterId") UUID renterId, @Param("status") RentalStatus status);

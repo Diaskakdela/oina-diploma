@@ -13,7 +13,7 @@ spring:
       ddl-auto: update
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8}
 
 integration:
   inventory:

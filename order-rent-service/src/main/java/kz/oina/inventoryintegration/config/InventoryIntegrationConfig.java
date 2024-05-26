@@ -9,7 +9,6 @@ import org.springframework.web.client.RestClient;
 @Configuration
 @RequiredArgsConstructor
 public class InventoryIntegrationConfig {
-    private static final String API_KEY_HEADER_NAME = "X-API-KEY";
 
     private final InventoryIntegrationSettings inventoryIntegrationSettings;
 
@@ -17,7 +16,6 @@ public class InventoryIntegrationConfig {
     public RestClient inventoryItemRestClient() {
         return RestClient.builder()
                 .baseUrl(inventoryIntegrationSettings.url())
-                .defaultHeaders(httpHeaders -> httpHeaders.add(API_KEY_HEADER_NAME, inventoryIntegrationSettings.apiKey()))
                 .build();
     }
 }

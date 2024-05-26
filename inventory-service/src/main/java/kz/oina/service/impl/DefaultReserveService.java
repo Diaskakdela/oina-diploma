@@ -59,7 +59,7 @@ public class DefaultReserveService implements ReserveService {
     }
 
     private Collection<InventoryItem> findInventoryItemsAndValidate(UUID toyId, int count) {
-        var inventoryItems = inventoryItemRepository.findByToyIdAndStatus(toyId, InventoryStatus.AVAILABLE, count);
+        var inventoryItems = inventoryItemRepository.findByToyIdAndStatus(toyId, InventoryStatus.AVAILABLE.name(), count);
 
         if (inventoryItems.isEmpty()) {
             throw ItemNotFoundException.notFoundByToyId(toyId);

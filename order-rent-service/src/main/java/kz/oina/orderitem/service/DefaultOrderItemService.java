@@ -120,6 +120,9 @@ public class DefaultOrderItemService implements OrderItemService {
 
     @Override
     public Collection<OrderItem> findPendingByOrderId(UUID orderID) {
-        return orderItemRepository.findAllByOrderIdAndRentalStatus(orderID, RentalStatus.PENDING);
+        return orderItemRepository.findAllByOrderId(orderID)
+                .stream()
+                .filter(orderItem -> orderItem.getRental().getStatus().equals(RentalStatus.PENDING))
+                .toList();
     }
 }

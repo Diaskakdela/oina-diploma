@@ -25,11 +25,9 @@ public class Order {
     @Column(nullable = false)
     private OrderStatus status;
 
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
@@ -38,6 +36,8 @@ public class Order {
         this.id = UUID.randomUUID();
         this.renterId = renterId;
         this.status = OrderStatus.PENDING;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void cancelOrder() {
@@ -45,6 +45,7 @@ public class Order {
             throw new IllegalStateException("Cannot cancel order because status is not PENDING");
         }
         this.status = OrderStatus.CANCELED;
+        this.updatedAt = LocalDateTime.now();
     }
 
 
@@ -53,6 +54,7 @@ public class Order {
             throw new IllegalStateException("Cannot pay order because status is not PENDING");
         }
         this.status = OrderStatus.PAID;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void rentOrder() {
@@ -60,5 +62,6 @@ public class Order {
             throw new IllegalStateException("Cannot rent order because status is not PAID");
         }
         this.status = OrderStatus.RENTED;
+        this.updatedAt = LocalDateTime.now();
     }
 }
