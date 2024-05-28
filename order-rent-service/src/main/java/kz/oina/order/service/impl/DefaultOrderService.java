@@ -13,6 +13,7 @@ import kz.oina.order.service.OrderService;
 import kz.oina.orderitem.entity.OrderItem;
 import kz.oina.orderitem.model.OrderItemCreationParams;
 import kz.oina.orderitem.service.OrderItemService;
+import kz.oina.toyintegration.service.ToyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -34,6 +36,7 @@ public class DefaultOrderService implements OrderService {
     private final OrderFactory orderFactory;
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
+    private final ToyService toyService;
 
     @Override
     public OrderWithOrderItems getOrderByRenterId(UUID renterId) {
@@ -66,7 +69,7 @@ public class DefaultOrderService implements OrderService {
     @Override
     @Transactional
     public Order cancelOrder(UUID orderId) {
-        var order = orderRepository.findById(orderId)
+        var order = orderRepository.findByIdAndStatus(orderId, OrderStatus.PENDING)
                 .orElseThrow(() -> OrderNotFoundException.notFound(orderId));
         order.cancelOrder();
         Collection<OrderItem> orderItems = orderItemService.cancelOrderItemsByOrderId(order.getId());
@@ -79,6 +82,16 @@ public class DefaultOrderService implements OrderService {
     public Order payOrder(UUID orderId) {
         var order = orderRepository.findById(orderId)
                 .orElseThrow(() -> OrderNotFoundException.notFound(orderId));
+        var toyIds = orderItemService.findOrderItemsByOrderId(orderId)
+                .stream()
+                .collect(Collectors.toMap(
+                        OrderItem::getToyId,
+                        item -> 1,
+                        Integer::sum
+                ));
+        var price = toyService.calculatePrice(toyIds);
+
+
         order.payOrder();
         return orderRepository.save(order);
     }

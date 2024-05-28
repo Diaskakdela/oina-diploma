@@ -32,6 +32,15 @@ public class ToyController(IToyService toyService, ToyMapper toyMapper) : Contro
         return Ok(toy);
     }
 
+    [HttpPost("calculate-price")]
+    [AllowAnonymous]
+    public IActionResult CalculatePrice([FromBody] ToyPriceCalculationRequest toyPriceCalculationRequest)
+    {
+        var price = toyService.CalculatePrice(toyPriceCalculationRequest);
+
+        return Ok(price);
+    }
+
     [HttpPost]
     [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> Save([FromForm] ToyCreationRequest toyCreationRequest)

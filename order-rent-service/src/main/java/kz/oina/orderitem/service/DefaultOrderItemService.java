@@ -95,6 +95,7 @@ public class DefaultOrderItemService implements OrderItemService {
     public void cancelOrderItemById(UUID orderItemId) {
         log.info("Deleting order item {}", orderItemId);
         var orderItem = orderItemRepository.findById(orderItemId)
+                .filter(orderItem1 -> orderItem1.getRental().getStatus().equals(RentalStatus.PENDING))
                 .orElseThrow(() -> OrderItemNotFoundException.notFoundById(orderItemId));
         inventoryIntegrationService.cancelReserveByIds(Collections.singleton(orderItem.getInventoryItemId()));
         log.info("Cancelled order item {}", orderItemId);

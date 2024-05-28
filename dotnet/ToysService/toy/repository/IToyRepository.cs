@@ -7,6 +7,8 @@ public interface IToyRepository
 {
     ICollection<Toy> FindAll();
 
+    ICollection<Toy> FindByIds(ICollection<Guid> toyIds);
+
     Toy? FindById(Guid toyId);
 
     Toy Create(Toy toy);

@@ -36,6 +36,7 @@ services:
       DATASOURCE_PASSWORD: postgres
       JWT_SECRET: b919abc8384c408f4a01f8df62a1dea5f56b2f62b4ffc48257895e5c2ec070d8
       INVENTORY_URL: http://inventory-service:8080
+      TOYS_SERVICE_URL: http://toys-service:8080
       ORDER_AUTO_CANCEL_MINUTES: 5
       CANCEL_UNPAID_ORDERS_CRON: 0 0/15 * * * ?
     depends_on:

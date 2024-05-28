@@ -5,6 +5,7 @@ import kz.oina.orderitem.exception.OrderItemNotFoundException;
 import kz.oina.orderitem.mapper.OrderItemMapper;
 import kz.oina.orderitem.service.OrderItemService;
 import kz.oina.orderitem.web.request.OrderItemAddRequest;
+import kz.oina.orderitem.web.request.OrderItemCancelRequest;
 import kz.oina.orderitem.web.request.OrderItemReturnRequest;
 import kz.oina.orderitem.web.response.OrderItemDTO;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,18 @@ public class OrderItemController {
                     .map(orderItemMapper::toDto)
                     .toList();
             return ResponseEntity.ok(ApiResponse.success(orderItems));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<ApiResponse<List<OrderItemDTO>>> cancelItem(@RequestBody OrderItemCancelRequest itemCancelRequest) {
+        try {
+            orderItemService.cancelOrderItemById(itemCancelRequest.orderItemId());
+            return ResponseEntity.ok(ApiResponse.success("Item has been cancelled"));
+        } catch (OrderItemNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.error(e.getMessage()));
         }

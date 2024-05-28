@@ -12,6 +12,6 @@ public class OrderNotFoundException extends RuntimeException {
     }
 
     public static OrderNotFoundException notFound(UUID orderId) {
-        return new OrderNotFoundException("Order not found with id=" + orderId);
+        return new OrderNotFoundException("Pending order not found with id=" + orderId);
     }
 }

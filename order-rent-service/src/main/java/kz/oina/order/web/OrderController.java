@@ -5,6 +5,7 @@ import kz.oina.core.web.ApiResponse;
 import kz.oina.order.exceptions.OrderNotFoundException;
 import kz.oina.order.model.OrderMapper;
 import kz.oina.order.service.OrderService;
+import kz.oina.order.web.request.CancelOrderRequest;
 import kz.oina.order.web.request.OrderCreationRequest;
 import kz.oina.order.web.request.PayOrderRequest;
 import kz.oina.order.web.request.RentOrderRequest;
@@ -72,7 +73,7 @@ public class OrderController {
     }
 
     @PostMapping("cancel")
-    public ResponseEntity<ApiResponse<OrderDTO>> cancelOrder(@RequestBody RentOrderRequest cancelOrderRequest) {
+    public ResponseEntity<ApiResponse<OrderDTO>> cancelOrder(@RequestBody CancelOrderRequest cancelOrderRequest) {
         try {
             var order = orderService.cancelOrder(cancelOrderRequest.orderId());
             return ResponseEntity.ok(ApiResponse.success(OrderDTO.from(order)));

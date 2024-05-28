@@ -15,7 +15,14 @@ public class ToyRepository(ApplicationDbContext applicationDbContext) : IToyRepo
     {
         return applicationDbContext.Toys.FirstOrDefault(toy => toy.Id == toyId);
     }
-
+    
+    public ICollection<Toy> FindByIds(ICollection<Guid> toyIds)
+    {
+        return applicationDbContext.Toys
+            .Where(toy => toyIds.Contains(toy.Id))
+            .ToList();
+    }
+    
     public Toy Create(Toy toy)
     {
         var entity = applicationDbContext.Toys.Add(toy);

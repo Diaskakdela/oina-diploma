@@ -10,7 +10,4 @@ public interface SubscriptionService {
     Optional<Subscription> findByUserId(UUID userId);
 
     Subscription createSubscription(SubscriptionCreationParams subscription);
-
-
-
 }

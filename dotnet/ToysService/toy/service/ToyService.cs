@@ -2,6 +2,7 @@ using ToysService.toy.entity;
 using ToysService.toy.exceptions;
 using ToysService.toy.factory;
 using ToysService.toy.model;
+using ToysService.toy.model.request;
 using ToysService.toy.repository;
 
 namespace ToysService.toy.service;
@@ -11,6 +12,34 @@ public class ToyService(IToyRepository toyRepository, ToyFactory toyFactory) : I
     public ICollection<Toy> FindAll()
     {
         return toyRepository.FindAll();
+    }
+
+    public decimal CalculatePrice(ToyPriceCalculationRequest request)
+    {
+        var toys = toyRepository.FindByIds(request.ToyIds.Keys);
+        
+        if (toys.Count != request.ToyIds.Keys.Count)
+        {
+            throw new ToyPriceCalculatingException("Not every toy was found.");
+        }
+
+        if (toys.Any(toy => toy.Price <= 0))
+        {
+            throw new ToyPriceCalculatingException("Some of the toys have invalid price values.");
+        }
+
+        decimal totalPrice = 0m;
+        foreach (var toy in toys)
+        {
+            int quantity = request.ToyIds[toy.Id];
+            if (quantity <= 0)
+            {
+                throw new ToyPriceCalculatingException("Quantity of toys must be greater than zero.");
+            }
+            totalPrice += toy.Price * quantity;
+        }
+
+        return totalPrice;
     }
 
     public Toy? FindById(Guid toyId)

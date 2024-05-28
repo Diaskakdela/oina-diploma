@@ -18,9 +18,11 @@ jwt:
 integration:
   inventory:
     url: ${INVENTORY_URL:http://localhost:8081}
+  toys-service:
+    url: ${TOYS_SERVICE_URL:http://localhost:8084}
 
 order:
-  auto-cancel-minutes: ${ORDER_AUTO_CANCEL_MINUTES:30}
+  auto-cancel-minutes: ${ORDER_AUTO_CANCEL_MINUTES:10000}
 
 schedule:
-  cancel-unpaid-orders-cron: ${CANCEL_UNPAID_ORDERS_CRON:0 0/5 * * * ?}
+  cancel-unpaid-orders-cron: ${CANCEL_UNPAID_ORDERS_CRON:0 0/30 * * * ?}

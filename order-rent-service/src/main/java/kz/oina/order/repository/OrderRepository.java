@@ -17,4 +17,5 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
     List<Order> findOrdersByStatusAndUpdatedBefore(OrderStatus status, LocalDateTime cutoff);
 
     Optional<Order> findByRenterIdAndStatus(UUID renterId, OrderStatus status);
+    Optional<Order> findByIdAndStatus(UUID id, OrderStatus status);
 }
