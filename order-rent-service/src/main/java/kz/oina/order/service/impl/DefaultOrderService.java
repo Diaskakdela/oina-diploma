@@ -58,7 +58,7 @@ public class DefaultOrderService implements OrderService {
 
         var savedOrder = orderRepository.save(order);
 
-        var orderItems = orderItemService.createOrderItem(new OrderItemCreationParams(toyId, count, order.getId(), renterId));
+        var orderItems = orderItemService.createOrderItem(new OrderItemCreationParams(toyId, count, savedOrder.getId(), renterId));
         log.info("Created order items: {}", orderItems);
         return new OrderWithOrderItems(savedOrder, orderItems);
     }

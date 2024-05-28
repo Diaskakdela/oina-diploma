@@ -3,8 +3,6 @@ package kz.oina.order.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -33,7 +31,6 @@ public class Order {
 
 
     public Order(UUID renterId) {
-        this.id = UUID.randomUUID();
         this.renterId = renterId;
         this.status = OrderStatus.PENDING;
         this.createdAt = LocalDateTime.now();
