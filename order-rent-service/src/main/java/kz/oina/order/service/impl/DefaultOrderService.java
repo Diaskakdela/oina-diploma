@@ -1,9 +1,13 @@
 package kz.oina.order.service.impl;
 
+import kz.oina.integrations.subscription.model.PaymentAvailabilityStatus;
+import kz.oina.integrations.subscription.service.SubscriptionService;
+import kz.oina.integrations.toy.service.ToyService;
 import kz.oina.order.entity.Order;
 import kz.oina.order.entity.OrderStatus;
 import kz.oina.order.exceptions.OrderAlreadyExistsException;
 import kz.oina.order.exceptions.OrderNotFoundException;
+import kz.oina.order.exceptions.PaymentIsNotAvailableException;
 import kz.oina.order.factory.OrderFactory;
 import kz.oina.order.model.OrderCreationParam;
 import kz.oina.order.model.OrderDetails;
@@ -13,7 +17,6 @@ import kz.oina.order.service.OrderService;
 import kz.oina.orderitem.entity.OrderItem;
 import kz.oina.orderitem.model.OrderItemCreationParams;
 import kz.oina.orderitem.service.OrderItemService;
-import kz.oina.toyintegration.service.ToyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +40,7 @@ public class DefaultOrderService implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
     private final ToyService toyService;
+    private final SubscriptionService subscriptionService;
 
     @Override
     public OrderWithOrderItems getOrderByRenterId(UUID renterId) {
@@ -90,8 +94,10 @@ public class DefaultOrderService implements OrderService {
                         Integer::sum
                 ));
         var price = toyService.calculatePrice(toyIds);
-
-
+        var status = subscriptionService.findPaymentAvailabilityStatus(order.getRenterId(), price);
+        if (!status.equals(PaymentAvailabilityStatus.AVAILABLE)) {
+            throw new PaymentIsNotAvailableException(status.name(), status);
+        }
         order.payOrder();
         return orderRepository.save(order);
     }

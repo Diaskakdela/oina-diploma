@@ -16,7 +16,6 @@ public class UserTokens {
 
     @Id
     private UUID id;
-    @Id
     private UUID userId;
     @Column(nullable = false)
     private Integer tokenAmount;

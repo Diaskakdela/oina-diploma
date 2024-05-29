@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubscriptionFactory {
     public Subscription createSubscription(SubscriptionCreationParams creationParams) {
-        return new Subscription(creationParams.userId(), creationParams.subscriptionTypeId());
+        return new Subscription(creationParams.renterId(), creationParams.subscriptionTypeId());
     }
 }

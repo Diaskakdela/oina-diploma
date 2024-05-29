@@ -3,6 +3,7 @@ package kz.oina.order.web;
 
 import kz.oina.core.web.ApiResponse;
 import kz.oina.order.exceptions.OrderNotFoundException;
+import kz.oina.order.exceptions.PaymentIsNotAvailableException;
 import kz.oina.order.model.OrderMapper;
 import kz.oina.order.service.OrderService;
 import kz.oina.order.web.request.CancelOrderRequest;
@@ -53,6 +54,8 @@ public class OrderController {
         try {
             var order = orderService.payOrder(payOrderRequest.orderId());
             return ResponseEntity.ok(ApiResponse.success(OrderDTO.from(order)));
+        } catch (PaymentIsNotAvailableException e) {
+            return ResponseEntity.ok(ApiResponse.error(null, e.getPaymentAvailabilityStatus().name()));
         } catch (OrderNotFoundException e) {
             return ResponseEntity.ok(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {

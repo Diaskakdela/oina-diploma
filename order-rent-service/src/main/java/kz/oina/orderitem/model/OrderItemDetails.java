@@ -1,6 +1,6 @@
 package kz.oina.orderitem.model;
 
-import kz.oina.inventoryintegration.model.Inventory;
+import kz.oina.integrations.inventory.model.Inventory;
 
 import java.util.Collection;
 import java.util.UUID;

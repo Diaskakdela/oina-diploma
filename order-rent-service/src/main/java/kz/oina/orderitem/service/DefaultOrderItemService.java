@@ -1,7 +1,7 @@
 package kz.oina.orderitem.service;
 
-import kz.oina.inventoryintegration.model.ReserveInventoryParams;
-import kz.oina.inventoryintegration.service.InventoryIntegrationService;
+import kz.oina.integrations.inventory.model.ReserveInventoryParams;
+import kz.oina.integrations.inventory.service.InventoryIntegrationService;
 import kz.oina.order.exceptions.OrderCreatingException;
 import kz.oina.orderitem.entity.OrderItem;
 import kz.oina.orderitem.entity.RentalStatus;

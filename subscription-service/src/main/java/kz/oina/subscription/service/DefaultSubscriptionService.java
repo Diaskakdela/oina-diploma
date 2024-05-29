@@ -5,6 +5,7 @@ import kz.oina.payment.exception.NoUserAccountDetailsException;
 import kz.oina.payment.model.PaymentCreationParams;
 import kz.oina.payment.service.PaymentService;
 import kz.oina.subscription.entity.Subscription;
+import kz.oina.subscription.entity.SubscriptionStatus;
 import kz.oina.subscription.exception.SubscriptionCreatingException;
 import kz.oina.subscription.exception.SubscriptionTypeNotExistsException;
 import kz.oina.subscription.factory.SubscriptionFactory;
@@ -28,22 +29,21 @@ public class DefaultSubscriptionService implements SubscriptionService {
 
     @Override
     public Optional<Subscription> findByUserId(UUID userId) {
-        return subscriptionRepository.findByUserId(userId);
+        return subscriptionRepository.findByUserIdAndStatus(userId, SubscriptionStatus.ACTIVE);
     }
 
     @Transactional
     @Override
     public Subscription createSubscription(SubscriptionCreationParams creationParams) throws SubscriptionCreatingException, NoUserAccountDetailsException {
-        var userId = creationParams.userId();
+        if (findByUserId(creationParams.renterId()).isPresent()) {
+            throw new SubscriptionCreatingException("Subscription with id " + creationParams.renterId() + " already exists");
+        }
+        var userId = creationParams.renterId();
         var subscriptionType = subscriptionTypeService.findSubscriptionTypeById(creationParams.subscriptionTypeId())
                 .orElseThrow(SubscriptionTypeNotExistsException::new);
-        try {
-            var payment = paymentService.makePayment(new PaymentCreationParams(userId, subscriptionType.getPrice()));
-        } catch (NoUserAccountDetailsException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new SubscriptionCreatingException("subscription creation failed", e);
-        }
+
+        var payment = paymentService.makePayment(new PaymentCreationParams(userId, subscriptionType.getPrice()));
+
         var subscription = subscriptionFactory.createSubscription(creationParams);
         var transaction = tranactionService.createTransactionOnSubscribe(userId, subscriptionType.getTokensProvided());
         return subscriptionRepository.save(subscription);

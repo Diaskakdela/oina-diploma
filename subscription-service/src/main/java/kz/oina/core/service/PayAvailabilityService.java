@@ -3,7 +3,6 @@ package kz.oina.core.service;
 import kz.oina.core.controller.model.PayAvailabilityResponse;
 import kz.oina.core.controller.model.PayAvailabilityStatus;
 import kz.oina.oinatokens.service.UserTokensService;
-import kz.oina.payment.service.PaymentService;
 import kz.oina.subscription.service.SubscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class PayAvailabilityService {
-    private final PaymentService paymentService;
     private final SubscriptionService subscriptionService;
     private final UserTokensService userTokensService;
 
