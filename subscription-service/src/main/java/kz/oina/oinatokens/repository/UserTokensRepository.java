@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserTokensRepository extends JpaRepository<UserTokens, Long> {
+public interface UserTokensRepository extends JpaRepository<UserTokens, UUID> {
     Optional<UserTokens> findByUserId(UUID userId);
 }

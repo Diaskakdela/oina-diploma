@@ -20,7 +20,7 @@ public class DefaultUserAccountService implements UserAccountService {
 
     @Override
     public Optional<UserAccount> findByUserId(UUID userId) {
-        return userAccountRepository.findById(userId);
+        return userAccountRepository.findByUserId(userId);
     }
 
     @Override

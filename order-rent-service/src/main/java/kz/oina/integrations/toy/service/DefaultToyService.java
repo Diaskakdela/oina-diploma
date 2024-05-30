@@ -16,6 +16,6 @@ public class DefaultToyService implements ToyService {
 
     @Override
     public BigDecimal calculatePrice(Map<UUID, Integer> toyIds) {
-        return toyClient.requestToyPrices(new ToyPricesRequest(toyIds)).price();
+        return toyClient.requestToyPrices(new ToyPricesRequest(toyIds));
     }
 }
