@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, sans-serif;
+    font-family: 'Candara', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -30,7 +31,6 @@ body {
     border-radius: 50%;
     padding: 7px;
     cursor: pointer;
-
 }
 
 .navbar {
@@ -39,7 +39,7 @@ body {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1050px;
+    max-width: 1200px;
     background-color: white;
     border-radius: 20px;
     padding-top: 10px;
@@ -132,34 +132,41 @@ body {
     position: relative;
     transition: background-color .6s ease;
     overflow: hidden;
+    margin-top: 20px;
+}
 
-    &:after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        top: 50%;
-        left: 50%;
-        top: var(--mouse-y);
-        left: var(--mouse-x);
-        transform-style: flat;
-        transform: translate3d(-50%, -50%, 0);
-        background: rgba(rgb(255, 255, 255), .1);
-        border-radius: 100%;
-        transition: width .3s ease, height .3s ease;
-    }
+.buybutton {
+    padding: 10px 38px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
+    line-height: 1.25;
+    background: #ffa500;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    position: relative;
+    transition: background-color .6s ease;
+    overflow: hidden;
+    margin-top: 100px;
+}
 
-    &:focus,
-    &:hover {
-        background: darken(#FC6E51, 7%);
-    }
-
-    &:active {
-        &:after {
-            width: 300px;
-            height: 300px;
-        }
-    }
+.buybutton-description {
+    padding: 10px 38px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
+    line-height: 1.25;
+    background: #ffa500;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    position: relative;
+    transition: background-color .6s ease;
+    overflow: hidden;
+    margin-top: 100px;
 }
 
 .Homelist {
@@ -263,6 +270,7 @@ a {
 .socialmedia {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .sb__footer-links_div h4 {
@@ -452,7 +460,7 @@ hr {
     margin-bottom: 40px;
 }
 
-.Sub-plans {
+.Subscription {
     margin-left: auto;
     margin-right: auto;
     max-width: 1050px;
@@ -460,29 +468,85 @@ hr {
     background-color: white;
     border-radius: 20px;
     margin-top: 30px;
+    text-align: center;
 }
 
-.Sub-plans h1 {
-    text-align: center;
-    margin-bottom: 30px;
+.Subscription h3{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.Sub-plans {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 30px;
 }
 
 .Sub-plan {
-    margin-top: 10px;
-    background-color: rgb(222, 92, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #ffc130;
+    border-radius: 10px;
+}
+
+.Payment-content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1050px;
+    padding: 50px;
+    background-color: white;
     border-radius: 20px;
+    margin-top: 30px;
+    justify-content: center;
+}
+.Payment-details button{
+    margin-top: 20px;
+    width: 600px;
+}
+
+.Payment-content-head {
+    text-align: center;
+}
+
+.Payment-content-head h3{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.Payment-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.Payment-form {
     display: flex;
     flex-direction: row;
-    padding: 40px;
-    justify-content: space-between;
+    column-gap: 20px;
 }
 
-.Sub-button {
+.form-details {
     margin-top: 20px;
+    font-size: 20px;
+}
+.form-details input{
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 8px 7px;
+    font-size: 18px;
+    width: 600px;
 }
 
-.Sub-button h4 {
-    margin-top: 20px;
+.Payment-form input{
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 8px 7px;
+    font-size: 18px;
+    width: 290px;
 }
 
 .aboutus-text {
@@ -512,7 +576,46 @@ hr {
     margin-left: auto;
     margin-right: auto;
     background-color: white;
+    padding: 10px 30px 30px 30px;
+}
+
+.toy-details {
+    border-radius: 20px;
+    margin-top: 30px;
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
     padding: 50px;
+}
+
+.toy-details-img img {
+    height: 400px;
+    width: 390px;
+    margin-right: 20px;
+}
+
+.toy-details-description {
+    font-size: 20px;
+}
+
+.toy-details-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.toy-details-button {
+    text-align: center;
+}
+
+.toy-details-content h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.toy-details-description p {
+    line-height: 30px;
 }
 
 .content {
@@ -521,21 +624,299 @@ hr {
 }
 
 
-.toys-catalog h1{
+.toys-catalog h1 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .category {
-    margin-right: 30px;
+    margin-right: 10px;
 }
 
 .category select{
     border-width: 1px;
     padding: 8px 7px;
-    font-size: 15px;
-    width: 250px;
+    font-size: 20px;
+    width: 350px;
+}
+
+.toy-item img {
+    cursor: pointer;
+    height: 250px;
+    width: 230px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.toys-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+    column-gap: 50px;
+}
+
+.toy-item {
+    border-radius: 20px;
+    padding: 10px 10px 25px 10px;
+    border: #000000;
+    border: 1px;
+}
+
+.toy-name{
+    color: #000000;
+}
+
+.button-item {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.menu-item:hover .dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 5px 10px;
+    white-space: nowrap;
+}
+
+.toy-details-button {
+    margin-top: 50px;
+}
+
+.price {
+    margin-top: 10px;
+}
+
+.order-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Полупрозрачный черный фон */
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1000;
+    pointer-events: auto;
+    /* Включаем указатели для всего слоя */
+}
+
+.order {
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    pointer-events: auto;
+    position: relative;
+    
+}
+
+.back-link {
+    font-size: 20px;
 }
 
 
 
+.close-order {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.search-category-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.search-category-container input {
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 50px; 
+    width: 500px;
+    font-size: 16px; 
+}
+
+.search-category-container h1 {
+    margin-top: 45px;
+}
+
+
+.category select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.searchIcon {
+    width: 40px;
+    height: 40px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.filters {
+    margin-right: 40px;
+    max-height: 250px;
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    line-height: 40px;
+    max-width: 350px;
+}
+
+.price-filter {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.age-filter {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.line {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px; /* Подстраивайте отступ по вашему желанию */
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cart-item p{
+    font-size: 19px;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+}
+
+.cart-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cart-item-details {
+    margin-left: 10px;
+}
+
+
+
+.cart-item .crossIcon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.Order-clear {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Order-clear .crossIcon{
+    margin-top: 3px;
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+}
+
+
+.Order-clear h1{
+    margin-right: 15px;
+}
+
+.Order-clear h2{
+    color: #000000;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.Order-clear h2:hover{
+    color: #747474;
+}
+
+.CartIcon {
+    height: 35px;
+    width: 35px;
+}
+
+.payment-button-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f8f8f8; /* Add background color for contrast */
+}
+
+.payment-button {
+    width: 100%;
+    background-color: #ffd61e;
+    color: rgb(0, 0, 0);
+    padding: 15px 0; /* Adjust padding for better look */
+    border: none;
+    border-radius: 0; /* Remove border-radius for full width button */
+    cursor: pointer;
+    font-size: 25px;
+    text-align: center;
+}
+
+.payment-button:hover {
+    background-color: #dec13c;
+}
+
+.total-sum {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}

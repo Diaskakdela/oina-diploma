@@ -7,9 +7,10 @@ function AddToys() {
     const [AgeRange, setAgeRange] = useState('');
     const [CategoryId, setCategoryId] = useState('');
     const [Price, setPrice] = useState('');
-    const [ImageUrl, setImageUrl] = useState('');
     const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
+    const [formData, setFormData] = useState(new FormData());
+
 
     useEffect(() => {
         const isAdmin = localStorage.role === 'ADMIN' || localStorage.role === 'USER and ADMIN';
@@ -39,6 +40,11 @@ function AddToys() {
         fetchCategories();
     }, []);
 
+    const handleChange = (event) => {
+        formData.set("ImageFile", event.target.files[0]);
+        setFormData(formData);
+    };
+
     // Функция для обработки выбора категории
     function handleCategoryChange(event) {
         setCategoryId(event.target.value);
@@ -46,38 +52,35 @@ function AddToys() {
 
     async function AddToy(event) {
         event.preventDefault();
+    
+        formData.append('Name', Name);
+        formData.append('Description', Description);
+        formData.append('AgeRange', AgeRange);
+        formData.append('CategoryId', CategoryId);
+        formData.append('Price', Price);
+    
+        try {
+            const response = await fetch(`${process.env.REACT_APP_TOY_SERVICE_URL}/toys`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.token
+                },
+                body: formData
+            });
+            const data = await response
 
-        const toyData = {
-            Name,
-            Description,
-            AgeRange,
-            CategoryId,
-            Price,
-            ImageUrl,
-        };
-
-        if (!Name || !Description || !AgeRange || !CategoryId || !Price || !ImageUrl) {
-            alert('Пожалуйста, заполните все поля');
-            return;
-        } else {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_TOY_SERVICE_URL}/toys`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.token
-                    },
-                    body: JSON.stringify(toyData),
-                });
-                const data = await response.json();
-
-                if (data) {
-                    alert('Игрушка успешно добавлена')
-                } 
-            } catch (error) {
-                console.error('Error adding toy:', error);
+            console.log(data)
+    
+            if (response.ok) {
+                alert('Игрушка успешно добавлена');
+                setFormData(new FormData());
+                window.location.reload();
+            } else {
                 alert('Ошибка при добавлении игрушки');
             }
+        } catch (error) {
+            console.error('Error adding toy:', error);
+            alert('Произошла ошибка при отправке запроса');
         }
     }
 
@@ -111,8 +114,8 @@ function AddToys() {
                     <input type="text" name="Price" id="Price" placeholder="Введите цену игрушки" value={Price} onChange={(e) => setPrice(e.target.value)} />
                 </div>
                 <div className="form-text">
-                    <h4>URL картинки</h4>
-                    <input type="text" name="ImageUrl" id="ImageUrl" placeholder="Введите URL картинки" minLength="10" value={ImageUrl} onChange={(e) => setImageUrl(e.target.value)} />
+                    <h4>Изображение</h4>
+                    <input type="file" name="ImageFile" id="ImageFile" accept="image/*" onChange={handleChange} />
                 </div>
                 <br /><button type="submit" className="button" >Добавить игрушку</button>
                 <br /> <Link to="/AddCategories">Добавить категории</Link>
@@ -122,3 +125,5 @@ function AddToys() {
 }
 
 export default AddToys;
+
+

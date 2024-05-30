@@ -11,6 +11,11 @@ function Signup() {
     const [Phone, setPhone] = useState('')
     const navigate = useNavigate()
 
+    function setClearTime() {
+        const clearTime = new Date().getTime() + 30 * 60000; // Текущее время + 30 минут в миллисекундах
+        localStorage.setItem('clearTime', clearTime);
+      }
+
     async function registerUser(event) {
         event.preventDefault()
 
@@ -38,6 +43,9 @@ function Signup() {
 
             if (data.token) {
                 localStorage.setItem('token', data.token)
+                localStorage.setItem('role', data.roles)
+                localStorage.setItem('renterId', data.renterId)
+                setClearTime();
                 alert('Регистрация успешна')
                 navigate('/Home')
             } else {
