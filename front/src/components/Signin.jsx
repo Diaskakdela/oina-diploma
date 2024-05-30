@@ -30,7 +30,7 @@ function Signin() {
 
     const fetchTokens = async () => {
         try {
-            const response = await fetch(`http://localhost:8083/oina-tokens/%7B${localStorage.renterId}%7D`, {
+            const response = await fetch(`http://localhost:8083/oina-tokens/${localStorage.renterId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.token
@@ -115,6 +115,7 @@ function Signin() {
                 localStorage.setItem('renterId', data.renterId)
                 fetchOrder();
                 setClearTime();
+                fetchTokens();
                 alert('Авторизация успешна')
                 navigate('/Home')
             }

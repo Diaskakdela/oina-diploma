@@ -31,7 +31,26 @@ function Header() {
 
   useEffect(() => {
     checkAndClearLocalStorage();
+    fetchTokens();
   }, []);
+
+  const fetchTokens = async () => {
+    try {
+        const response = await fetch(`http://localhost:8083/oina-tokens/${localStorage.renterId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.token
+            },
+        });
+        const data = await response.json();
+        if (data.success === true) {
+            localStorage.setItem('tokens', data.data.tokens)
+        }
+    } catch (error) {
+        console.error('Error fetching tokens:', error);
+        return null;
+    }
+};
 
   function toggleCart() {
     setIsCartOpen(!isCartOpen);
@@ -42,6 +61,7 @@ function Header() {
     window.location.reload();
     navigate('/Home')
   }
+
   let buttonToLogOut;
   if (localStorage.token) {
     buttonToLogOut = <li><Link onClick={logout}>Выйти</Link></li>;
@@ -60,6 +80,18 @@ function Header() {
   } else {
     buttonToAddToys = null;
   }
+
+  let tokens
+  if (localStorage.tokens) {
+    tokens = <li className="token-display">
+    <span className="blue-circle">&nbsp;т&nbsp;</span>
+    <span className="token-count">{localStorage.tokens}</span>
+  </li>
+  }
+  else {
+    tokens = null
+  }
+
   return (
     <>
       <section id="container">
@@ -74,6 +106,7 @@ function Header() {
           </ul>
           <ul>
             <Link onClick={toggleCart}><img src={Cart} className="CartIcon" alt=""></img></Link>
+            {tokens}
             {buttonToLogOut}
           </ul>
         </div>

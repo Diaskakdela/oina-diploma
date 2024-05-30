@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 function Subscription() {
     const [subscription, setSubscription] = useState([]);
-
-
-    let button
-    if (localStorage.token) {
-        button = <Link className="button" id="button" to="/PaymentMethod">9990 тенге</Link>
-    }
-    else {
-        button = <Link className="button" id="button" to="/Signin">9990 тенге</Link>
-    }
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchSubscriptionDetails = async () => {
             try {
                 const response = await fetch('http://localhost:8083/subscription-types');
                 const data = await response.json();
-                setSubscription(data);
+                setSubscription(data.data);
                 console.log(data); // Используем данные напрямую
             } catch (error) {
                 console.error('Error fetching subscription details:', error);
@@ -29,7 +20,7 @@ function Subscription() {
         fetchSubscriptionDetails();
     }, []);
 
-    const BuySubscription = async () => {
+    const BuySubscription = async (subscriptionTypeId) => {
         try {
             const response = await fetch('http://localhost:8083/subscription', {
                 method: "POST",
@@ -39,22 +30,23 @@ function Subscription() {
                 },
                 body: JSON.stringify({
                     "renterId": localStorage.renterId,
-                    "subscriptionTypeId": ""
+                    "subscriptionTypeId": subscriptionTypeId
                 })
             });
             const data = await response.json();
             console.log(data);
             
-            if (data.isSuccess === true) {
+            if (data.success === true) {
                 alert("Спасибо за покупку!")
-                
+                navigate('/Home')
+            }
+            else if (data.data.status === "NO_USER_ACCOUNT") {
+                navigate('/PaymentMethod')
             }
         } catch (error) {
             console.error('Error fetching subscription details:', error);
         }
     };
-
-
 
     return (
         <div className="Subscription">
@@ -62,24 +54,24 @@ function Subscription() {
             <h3>Готовы начать аренду? Выберите план и сделайте свой первый заказ сегодня. (Первая доставка бесплатно!)</h3>
             <div className="line"></div>
             <div className="Sub-plans">
-                <div className="Sub-plan">
-                    <h2>GOLD</h2>
-                    <h3>План на 1 месяц</h3>
-                    <h3>500 ТОКЕНОВ</h3>
-                    {button}
-                </div>
-                <div className="Sub-plan">
-                    <h2>PLATINUM</h2>
-                    <h3>План на 1 месяц</h3>
-                    <h3>800 ТОКЕНОВ</h3>
-                    {button}
-                </div>
-                <div className="Sub-plan">
-                    <h2>DIAMOND</h2>
-                    <h3>План на 1 месяц</h3>
-                    <h3>1200 ТОКЕНОВ</h3>
-                    {button}
-                </div>
+                {subscription.map(plan => (
+                    <div key={plan.id} className="Sub-plan">
+                        <h2>{plan.name}</h2>
+                        <h3>План на 1 месяц</h3>
+                        <h3>{plan.tokensProvided} ТОКЕНОВ</h3>
+                        {localStorage.token ? (
+                            <Link 
+                                className="button" 
+                                id="button"
+                                onClick={() => BuySubscription(plan.id)}
+                            >
+                                {plan.price} тенге
+                            </Link>
+                        ) : (
+                            <Link className="button" id="button" to="/Signin">{plan.price} тенге</Link>
+                        )}
+                    </div>
+                ))}
             </div>
         </div>
     )
