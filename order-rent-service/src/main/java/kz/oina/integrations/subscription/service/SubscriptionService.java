@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface SubscriptionService {
     PaymentAvailabilityStatus findPaymentAvailabilityStatus(UUID renterId, BigDecimal amount);
+    void pay(UUID renterId, BigDecimal amount);
 }

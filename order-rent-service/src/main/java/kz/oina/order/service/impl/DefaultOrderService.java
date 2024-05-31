@@ -7,6 +7,7 @@ import kz.oina.order.entity.Order;
 import kz.oina.order.entity.OrderStatus;
 import kz.oina.order.exceptions.OrderAlreadyExistsException;
 import kz.oina.order.exceptions.OrderNotFoundException;
+import kz.oina.order.exceptions.PaymentException;
 import kz.oina.order.exceptions.PaymentIsNotAvailableException;
 import kz.oina.order.factory.OrderFactory;
 import kz.oina.order.model.OrderCreationParam;
@@ -98,6 +99,12 @@ public class DefaultOrderService implements OrderService {
         if (!status.equals(PaymentAvailabilityStatus.AVAILABLE)) {
             throw new PaymentIsNotAvailableException(status.name(), status);
         }
+        try {
+            subscriptionService.pay(order.getRenterId(), price);
+        } catch (PaymentException e) {
+            throw new PaymentIsNotAvailableException("ERROR", PaymentAvailabilityStatus.ERROR);
+        }
+
         order.payOrder();
         return orderRepository.save(order);
     }

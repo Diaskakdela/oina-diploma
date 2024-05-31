@@ -35,7 +35,7 @@ public class OinaTokensController {
     }
 
     @PostMapping("credit")
-    public ResponseEntity<ApiResponse<CreditTokensResponse>> creditTokens(CreditTokensRequest creditTokensRequest) {
+    public ResponseEntity<ApiResponse<CreditTokensResponse>> creditTokens(@RequestBody CreditTokensRequest creditTokensRequest) {
         try {
             var transaction = transactionService.createTransaction(
                     TransactionDetails.creditTransaction(creditTokensRequest.renterId(), creditTokensRequest.amount()));
