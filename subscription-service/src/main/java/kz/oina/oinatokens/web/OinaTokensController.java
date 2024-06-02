@@ -51,10 +51,10 @@ public class OinaTokensController {
     }
 
     @PostMapping("debit")
-    public ResponseEntity<ApiResponse<DebitTokensResponse>> debitTokens(DebitTokensRequest debitTokensRequest) {
+    public ResponseEntity<ApiResponse<DebitTokensResponse>> debitTokens(@RequestBody DebitTokensRequest debitTokensRequest) {
         try {
             var transaction = transactionService.createTransaction(
-                    TransactionDetails.creditTransaction(debitTokensRequest.renterId(), debitTokensRequest.amount()));
+                    TransactionDetails.debitTransaction(debitTokensRequest.renterId(), debitTokensRequest.amount()));
             var response = new DebitTokensResponse(transaction.getId(), transaction.getTransactionType().name());
             return ResponseEntity.ok(ApiResponse.success(response));
         } catch (UserAccountAbsenceException e) {

@@ -21,7 +21,7 @@ integration:
   toys-service:
     url: ${TOYS_SERVICE_URL:http://localhost:8084}
   subscription:
-    url: ${SUBSCRIPTION_SERVICE_URL:http://localhost:8083}
+    url: ${SUBSCRIPTION_SERVICE_URL:http://localhost:7083}
 
 order:
   auto-cancel-minutes: ${ORDER_AUTO_CANCEL_MINUTES:10000}

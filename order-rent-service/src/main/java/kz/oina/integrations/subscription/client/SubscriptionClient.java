@@ -25,7 +25,7 @@ public class SubscriptionClient {
 
     public PayResponse pay(PayRequest payAvailableRequest) {
         return subscriptionRestClient.post()
-                .uri(uriBuilder -> uriBuilder.path("oina-tokens/credit")
+                .uri(uriBuilder -> uriBuilder.path("oina-tokens/debit")
                         .build())
                 .body(payAvailableRequest)
                 .retrieve()
