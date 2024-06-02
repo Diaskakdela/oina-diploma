@@ -21,7 +21,7 @@ function Header() {
 
 
 
-  const checkAndClearLocalStorage = () => { 
+  const checkAndClearLocalStorage = () => {
     const clearTime = localStorage.getItem('clearTime');
     if (clearTime && new Date().getTime() > clearTime) {
       localStorage.clear();
@@ -36,21 +36,23 @@ function Header() {
 
   const fetchTokens = async () => {
     try {
-        const response = await fetch(`http://localhost:8083/oina-tokens/${localStorage.renterId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.token
-            },
-        });
-        const data = await response.json();
-        if (data.success === true) {
-            localStorage.setItem('tokens', data.data.tokens)
-        }
+      const response = await fetch(`http://localhost:8083/oina-tokens/${localStorage.renterId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        },
+      });
+      const data = await response.json();
+      console.log(data)
+      if (data.success === true) {
+        localStorage.removeItem(tokens);
+        localStorage.setItem('tokens', data.data.tokens)
+      }
     } catch (error) {
-        console.error('Error fetching tokens:', error);
-        return null;
+      console.error('Error fetching tokens:', error);
+      return null;
     }
-};
+  };
 
   function toggleCart() {
     setIsCartOpen(!isCartOpen);
@@ -84,9 +86,9 @@ function Header() {
   let tokens
   if (localStorage.tokens) {
     tokens = <li className="token-display">
-    <span className="blue-circle">&nbsp;т&nbsp;</span>
-    <span className="token-count">{localStorage.tokens}</span>
-  </li>
+      <span className="blue-circle">&nbsp;т&nbsp;</span>
+      <span className="token-count">{localStorage.tokens}</span>
+    </li>
   }
   else {
     tokens = null

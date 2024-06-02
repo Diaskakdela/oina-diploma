@@ -46,14 +46,17 @@ function Order({ toggleCart }) {
                 const data = await response.json();
                 console.log(data)
 
-                if (data.success === "true") {
+                if (data.success === true) {
+                    localStorage.removeItem('orderId');
+                    localStorage.removeItem('cart')
+                    localStorage.order = false
                     alert("Спасибо за покупку!")
                     window.location.reload();
                 }
-                else if (data.status === "NOT_ENOUGH_TOKENS") {
+                else if (data.message === "NOT_ENOUGH_TOKENS") {
                     alert("У вас недостаточно токенов")
                 }
-                else if (data.status === "NO_SUBSCRIPTION") {
+                else if (data.message === "NO_SUBSCRIPTION") {
                     alert("У вас нету подписки")
                     navigate('/Subscription')
                 }
@@ -83,7 +86,7 @@ function Order({ toggleCart }) {
                 const data = await response.json();
                 console.log(data)
 
-                if (data.data || data.message === "Cannot cancel order because status is not PENDING") {
+                if (data.success === true || data.message === "Cannot cancel order because status is not PENDING") {
                     localStorage.removeItem('orderId');
                     localStorage.removeItem('cart')
                     localStorage.order = false
@@ -118,6 +121,9 @@ function Order({ toggleCart }) {
                     const updatedCart = cart.filter(item => item.orderItemId !== orderItemId);
                     localStorage.setItem('cart', JSON.stringify(updatedCart));
                     setCart(updatedCart);
+                    if (updatedCart.length === 0) {
+                        CancelOrder()
+                    }
                     window.location.reload();
                 }
             } catch (error) {
@@ -140,7 +146,6 @@ function Order({ toggleCart }) {
                     <div className="cart-items">
                         {cart.map(item => (
                             <div key={item.id} className="cart-item">
-                                <img onClick={() => CancelOrderItem(item.orderItemId)} src={X} className="crossIcon" alt=""></img>
                                 <img src={`${process.env.REACT_APP_TOY_SERVICE_URL}/Images/${item.imageUrl}`} alt={item.name} />
                                 <div className='cart-text'>
                                     <div className="cart-item-details">

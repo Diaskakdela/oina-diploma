@@ -45,6 +45,7 @@ function Signup() {
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('role', data.roles)
                 localStorage.setItem('renterId', data.renterId)
+                localStorage.setItem('order', false)
                 setClearTime();
                 alert('Регистрация успешна')
                 navigate('/Home')
@@ -70,11 +71,11 @@ function Signup() {
                 </div>
                 <div className="form-text">
                     <h4>Номер телефона</h4>
-                    <input type="text" name="Phone" id="Phone" placeholder="Введите номер телефона" minLength="12" value={Phone} onChange={(e) => setPhone(e.target.value)} />
+                    <input type="text" name="Phone" id="Phone" placeholder="Введите номер телефона" minLength="12" maxLength="12" value={Phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
                 <div className="form-text">
                     <h4>Электронная почта</h4>
-                    <input type="text" name="Email" id="Email" placeholder="Введите электронную почту" minLength="13" value={Email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" name="Email" id="Email" placeholder="Введите электронную почту" minLength="11" value={Email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="form-text">
                     <h4>Пароль</h4>
