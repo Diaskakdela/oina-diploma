@@ -31,8 +31,8 @@ function Header() {
 
   useEffect(() => {
     checkAndClearLocalStorage();
-    fetchTokens();
-  }, []);
+    if (localStorage.token && localStorage.role !== "ADMIN") fetchTokens();
+  },);
 
   const fetchTokens = async () => {
     try {
@@ -74,9 +74,9 @@ function Header() {
   let buttonToAddToys;
   if (localStorage.role === "ADMIN" || localStorage.role === "USER and ADMIN") {
     buttonToAddToys = <li className="menu-item">
-      <Link to="/AddToys">Add toys</Link>
+      <Link to="/AddToys">Добавить игрушку</Link>
       <div className="dropdown">
-        <Link className="dropdown-item" to="/ChangeToys">Change toys</Link>
+        <Link className="dropdown-item" to="/ChangeToys">Изменить игрушкуs</Link>
       </div>
     </li>
   } else {
@@ -94,6 +94,14 @@ function Header() {
     tokens = null
   }
 
+  let CartIcon
+  if (localStorage.role === "ADMIN") {
+    CartIcon = null
+  }
+  else {
+    CartIcon = <Link onClick={toggleCart}><img src={Cart} className="CartIcon" alt=""></img></Link>
+  }
+
   return (
     <>
       <section id="container">
@@ -107,7 +115,7 @@ function Header() {
             {buttonToAddToys}
           </ul>
           <ul>
-            <Link onClick={toggleCart}><img src={Cart} className="CartIcon" alt=""></img></Link>
+            {CartIcon}
             {tokens}
             {buttonToLogOut}
           </ul>

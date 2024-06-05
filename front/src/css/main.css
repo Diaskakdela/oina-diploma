@@ -481,6 +481,8 @@ hr {
     flex-direction: row;
     justify-content: center;
     column-gap: 30px;
+    margin-top: 60px;
+    margin-bottom: 50px;
 }
 
 .Sub-plan {
@@ -783,7 +785,7 @@ hr {
 
 .filters {
     margin-right: 40px;
-    max-height: 250px;
+    height: 450px;
     padding: 15px;
     border-radius: 20px;
     display: flex;

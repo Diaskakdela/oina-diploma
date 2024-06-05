@@ -94,11 +94,11 @@ function AddToys() {
                 </div>
                 <div className="form-text">
                     <h4>Описание</h4>
-                    <input type="text" name="Description" id="Description" placeholder="Введите описание игрушки" minLength="10" value={Description} onChange={(e) => setDescription(e.target.value)} />
+                    <input type="text" name="Description" id="Description" placeholder="Введите описание игрушки" minLength="5" value={Description} onChange={(e) => setDescription(e.target.value)} />
                 </div>
                 <div className="form-text">
                     <h4>Возрастная категория</h4>
-                    <input type="text" name="AgeRange" id="AgeRange" placeholder="Введите возрастную категорию игрушки" minLength="2" value={AgeRange} onChange={(e) => setAgeRange(e.target.value)} />
+                    <input type="text" name="AgeRange" id="AgeRange" placeholder="Введите возрастную категорию игрушки" minLength="1" value={AgeRange} onChange={(e) => setAgeRange(e.target.value)} />
                 </div>
                 <div className="form-text">
                     <h4>Категория</h4>

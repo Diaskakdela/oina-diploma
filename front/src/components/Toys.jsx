@@ -7,7 +7,7 @@ function Toys() {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const [maxPrice, setMaxPrice] = useState(400);  
+    const [maxPrice, setMaxPrice] = useState(160);  
     const [maxAge, setMaxAge] = useState(8);  
 
     useEffect(() => {
@@ -19,6 +19,7 @@ function Toys() {
         try {
             const response = await fetch(`${process.env.REACT_APP_TOY_SERVICE_URL}/toys`);
             const data = await response.json();
+            console.log(data)
             setToys(data);
         } catch (error) {
             console.error('Error fetching toys:', error);
@@ -89,8 +90,8 @@ function Toys() {
                         <h3>Цена</h3>
                         <input
                             type="range"
-                            min="100"
-                            max="400"
+                            min="10"
+                            max="160"
                             value={maxPrice}
                             onChange={handleMaxPriceChange}
                         />

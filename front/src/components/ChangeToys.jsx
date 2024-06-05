@@ -90,7 +90,6 @@ function ChangeToys() {
                 body: JSON.stringify(toyData),
             });
             const data = await response
-
             console.log(data)
 
             if (response.ok) {
@@ -124,7 +123,7 @@ function ChangeToys() {
                 </div>
                 <div className="form-text">
                     <h4>Описание</h4>
-                    <input type="string" name="Description" id="Description" placeholder="Введите описание игрушки" minLength="10" value={Description} onChange={(e) => setDescription(e.target.value)} />
+                    <input type="string" name="Description" id="Description" placeholder="Введите описание игрушки" minLength="5" value={Description} onChange={(e) => setDescription(e.target.value)} />
                 </div>
                 <div className="form-text">
                     <h4>Возрастная категория</h4>
@@ -132,7 +131,7 @@ function ChangeToys() {
                 </div>
                 <div className="form-text">
                     <h4>Категория</h4>
-                    <select type="Guid" value={CategoryId} onChange={handleCategoryChange}>
+                    <select value={CategoryId} onChange={handleCategoryChange}>
                         <option key="" value="" >Выберите категорию</option>
                         {categories.map(category => (
                             <option name="CategoryName" id="CategoryName" key={category.id} value={category.id}>{category.categoryName}</option>
